@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">菠萝街</string>
+    <string name="wechat">微信</string>
+    <string name="weibo">微博</string>
+    <string name="moblie">手机</string>
+    <string name="longin_hint">请使用以下方式登录</string>
+</resources>

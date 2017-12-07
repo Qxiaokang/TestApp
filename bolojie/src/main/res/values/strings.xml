@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Bolojie</string>
+    <string name="wechat">wechat</string>
+    <string name="weibo">weibo</string>
+    <string name="qq">QQ</string>
+    <string name="phone">Phone</string>
+</resources>

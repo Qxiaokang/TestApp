@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">测试</string>
+    <string name="title_activity_localctivity">Localctivity</string>
+    <string name="menu1">用户中心</string>
+    <string name="menu2">签到</string>
+    <string name="menu3">拍照</string>
+    <string name="menu4">天气</string>
+    <string name="menu5">直播</string>
+    <string name="menu6">系统设置</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TestApp.iml" filepath="$PROJECT_DIR$/TestApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apprecoder/apprecoder.iml" filepath="$PROJECT_DIR$/apprecoder/apprecoder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bolojie/bolojie.iml" filepath="$PROJECT_DIR$/bolojie/bolojie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/liveRtmpPushSDK/liveRtmpPushSDK.iml" filepath="$PROJECT_DIR$/liveRtmpPushSDK/liveRtmpPushSDK.iml" />
+    </modules>
+  </component>
+</project>
