@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="150dp"
         android:layout_alignParentBottom="true"
         >
         <LinearLayout
@@ -126,8 +126,31 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/ll_login_way"
-        android:text="@string/longin_hint"
+        android:text="@string/longin_hint1"
         android:textColor="@color/colorGrayLogin"
         android:textSize="@dimen/login_content_size"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/login_content_size"
+        android:text="@string/longin_hint2"
+        android:textColor="@color/colorGrayLogin"
+        android:layout_above="@+id/tv_protocol"
+        />
+    <TextView
+        android:id="@+id/tv_protocol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorGrayLogin"
+        android:textSize="@dimen/login_content_size"
+        android:layout_centerHorizontal="true"
+        android:text="@string/longin_protocol"
+        android:autoLink="all"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin50"
+        android:clickable="true"
+        android:textColorLink="@color/colorAccent"
         />
 </RelativeLayout>

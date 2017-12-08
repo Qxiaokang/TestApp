@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Window;
 
+import com.example.admin.bolojie.util.MainApplication;
+
 /**activity基类
  * @author Admin
 * */
@@ -26,6 +28,14 @@ public abstract class  BaseActivity extends AppCompatActivity{
         screenH=dm.heightPixels;
         density=dm.density;
         dpi=dm.densityDpi;
+        MainApplication.getInstance().addActivity(this);
+        init();
     }
     abstract int getContentViewId();
+    abstract void init();
+    @Override
+    protected void onDestroy(){
+        MainApplication.getInstance().removeActivity(this.getClass());
+        super.onDestroy();
+    }
 }

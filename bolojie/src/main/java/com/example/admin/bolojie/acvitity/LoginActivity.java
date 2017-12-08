@@ -1,6 +1,7 @@
 package com.example.admin.bolojie.acvitity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.admin.bolojie.R;
 import com.example.admin.bolojie.util.LogUtils;
@@ -30,19 +32,21 @@ public class LoginActivity extends BaseActivity implements SurfaceHolder.Callbac
     private static final String SCOPE ="all";
     private Tencent mTencent;
     private ImageView ivQQ,ivWechat,ivWeiBo,ivPhone;
+    private TextView protocol;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        init();
         LogUtils.d("屏幕分辨率："+screenH+"*"+screenW+"  密度："+density+"  DPI:"+dpi);
     }
-
-    private void init(){
+    @Override
+    void init(){
         surfaceView= (SurfaceView) findViewById(R.id.login_sfv);
         ivWechat= (ImageView) findViewById(R.id.iv_wechat);
         ivWeiBo= (ImageView) findViewById(R.id.iv_weibo);
         ivQQ= (ImageView) findViewById(R.id.iv_qq);
         ivPhone= (ImageView) findViewById(R.id.iv_phone);
+        protocol= (TextView) findViewById(R.id.tv_protocol);
+        protocol.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         mp=MediaPlayer.create(this,R.raw.login);
         surfaceHolder=surfaceView.getHolder();
         surfaceHolder.addCallback(this);
@@ -50,6 +54,7 @@ public class LoginActivity extends BaseActivity implements SurfaceHolder.Callbac
         ivWeiBo.setOnClickListener(onClickListener);
         ivQQ.setOnClickListener(onClickListener);
         ivPhone.setOnClickListener(onClickListener);
+        protocol.setOnClickListener(onClickListener);
     }
 
     @Override
@@ -127,6 +132,10 @@ public class LoginActivity extends BaseActivity implements SurfaceHolder.Callbac
                     break;
                 case R.id.iv_phone:
                     break;
+                case R.id.tv_protocol:
+                    Intent intent=new Intent(LoginActivity.this,ProtocolActivity.class);
+                    startActivity(intent);
+                    break;
                 default:
                     break;
             }
@@ -157,8 +166,10 @@ public class LoginActivity extends BaseActivity implements SurfaceHolder.Callbac
             @Override
             public void onComplete(Object o){
                 LogUtils.d("get UserInfo ="+o.toString());
+                Intent intent=new Intent(LoginActivity.this,IndexActivity.class);
+                LoginActivity.this.startActivity(intent);
+                LoginActivity.this.finish();
             }
-
             @Override
             public void onError(UiError uiError){
                 LogUtils.e("get userInfo faild:"+uiError.toString());

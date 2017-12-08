@@ -3,5 +3,8 @@
     <string name="wechat">微信</string>
     <string name="weibo">微博</string>
     <string name="moblie">手机</string>
-    <string name="longin_hint">请使用以下方式登录</string>
+    <string name="longin_hint1">请使用以下方式登录</string>
+    <string name="longin_hint2">登录即代表你已阅读并接受</string>
+    <string name="longin_protocol">用户协议</string>
+    <string name="award_content">恭喜你得到16个菠萝，送给心仪的主播吧！明天领取更多！</string>
 </resources>
