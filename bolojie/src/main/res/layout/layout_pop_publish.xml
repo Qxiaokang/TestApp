@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <LinearLayout
+        android:id="@+id/ll_iv"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/margin10"
+        android:paddingBottom="@dimen/margin10"
+        >
+        <ImageView
+            android:id="@+id/iv_living"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_main_publish"
+            android:scaleType="fitCenter"
+            android:paddingLeft="@dimen/margin30"
+            android:layout_gravity="center"
+            />
+        <ImageView
+            android:id="@+id/iv_video"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_main_video"
+            android:scaleType="fitCenter"
+            android:paddingRight="@dimen/margin30"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_publish_cancle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/title_height"
+        android:src="@drawable/ic_main_cancel"
+        android:scaleType="fitCenter"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ll_iv"
+        />
+</RelativeLayout>

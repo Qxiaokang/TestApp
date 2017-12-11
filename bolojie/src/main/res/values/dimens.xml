@@ -8,6 +8,7 @@
     <dimen name="margin100">100dp</dimen>
     <dimen name="margin150">150dp</dimen>
     <dimen name="margin200">200dp</dimen>
+    <dimen name="padding15">15dp</dimen>
     <dimen name="login_content_size">15sp</dimen>
     <dimen name="title_content_size">20sp</dimen>
     <dimen name="title_height">50dp</dimen>
