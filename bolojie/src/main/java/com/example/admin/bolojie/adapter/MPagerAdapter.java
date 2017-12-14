@@ -3,6 +3,7 @@ package com.example.admin.bolojie.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -11,11 +12,11 @@ import java.util.List;
  */
 public class MPagerAdapter extends FragmentPagerAdapter{
     private List<Fragment> fragmentList;
-    private String [] titles;
+    private List<String> titles;
     public MPagerAdapter(FragmentManager fm){
         super(fm);
     }
-    public MPagerAdapter(FragmentManager fm,List<Fragment> fragments,String [] titles){
+    public MPagerAdapter(FragmentManager fm,List<Fragment> fragments,List<String> titles){
         super(fm);
         this.fragmentList=fragments;
         this.titles=titles;
@@ -32,6 +33,11 @@ public class MPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public CharSequence getPageTitle(int position){
-        return titles[position];
+        return titles.get(position);
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object){
+        //super.destroyItem(container, position, object);
     }
 }

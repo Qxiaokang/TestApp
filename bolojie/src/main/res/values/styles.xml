@@ -32,4 +32,12 @@
         <item name="android:windowEnterAnimation">@anim/pop_enter</item>
         <item name="android:windowExitAnimation">@anim/pop_exit</item>
     </style>
+
+    <declare-styleable name="PageIndexView">
+        <attr name="view_count" format="integer"/>
+        <attr name="view_radius" format="dimension"/>
+        <attr name="view_defaultColor" format="color"/>
+        <attr name="view_selectedColor" format="color"/>
+        <attr name="view_circlePadding" format="float"/>
+    </declare-styleable>
 </resources>

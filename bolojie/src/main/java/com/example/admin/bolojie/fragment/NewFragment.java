@@ -1,107 +1,139 @@
 package com.example.admin.bolojie.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.admin.bolojie.R;
+import com.example.admin.bolojie.adapter.ImagePageAdapter;
+import com.example.admin.bolojie.adapter.RecycleAdapter;
+import com.example.admin.bolojie.bean.Data;
+import com.example.admin.bolojie.view.PageIndexView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link NewFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link NewFragment#newInstance} factory method to
- * create an instance of this fragment.
+ *
  */
-public class NewFragment extends Fragment{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
+public class NewFragment extends Fragment implements ViewPager.OnPageChangeListener{
+    private ViewPager topPage;
+    private PageIndexView pageIndexView;
+    private List<String> listUrl=new ArrayList<String>();
+    private boolean  isDownload=false;
+    private ImagePageAdapter imagePageAdapter;
+    private RecyclerView recyclerView;
+    private int currentPosition;
+    private static final int First_Page=1;
+    private Timer timer;
+    private TimerTask timerTask;
     public NewFragment(){
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NewFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NewFragment newInstance(String param1, String param2){
-        NewFragment fragment = new NewFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        if(getArguments() != null){
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new, container, false);
+        View view=inflater.inflate(R.layout.fragment_new, container, false);
+        topPage= (ViewPager) view.findViewById(R.id.top_page);
+        pageIndexView= (PageIndexView) view.findViewById(R.id.page_index);
+        recyclerView= (RecyclerView) view.findViewById(R.id.new_recycle);
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri){
-        if(mListener != null){
-            mListener.onFragmentInteraction(uri);
+    @Override
+    public void onStart(){
+        super.onStart();
+    }
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels){
+
+    }
+    @Override
+    public void onPageSelected(int position){
+        if(position==listUrl.size()-1){
+            currentPosition=First_Page;
+        }else if(position==0){
+            currentPosition= listUrl.size()-2;
+        }else {
+            currentPosition=position;
+        }
+        if(isDownload){
+            pageIndexView.setCurrIndex(currentPosition-1);
+        }
+        if(currentPosition!=position){
+            topPage.setCurrentItem(currentPosition);
         }
     }
 
     @Override
-    public void onAttach(Context context){
-        super.onAttach(context);
-        if(context instanceof OnFragmentInteractionListener){
-            mListener = (OnFragmentInteractionListener) context;
-        }else{
-            //throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
+    public void onPageScrollStateChanged(int state){
+
+    }
+    public void updateFragment(List<String> list, String tag, Data data){
+        if(list!=null){
+            this.listUrl=list;
         }
+        if(list!=null&&list.size()>2){
+            pageIndexView.setCount(listUrl.size()-2);
+        }
+        imagePageAdapter=new ImagePageAdapter(getContext(),listUrl);
+        topPage.setAdapter(imagePageAdapter);
+        topPage.addOnPageChangeListener(this);
+        topPage.setCurrentItem(First_Page);
+        startTimer();
+        isDownload=true;
+        initRecycle(getContext(),tag,data);
     }
-
+    private void initRecycle(Context context,String tag,Data data){
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),3);
+        gridLayoutManager.setAutoMeasureEnabled(true);
+        RecycleAdapter recycleAdapter=new RecycleAdapter(context,data,tag);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(recycleAdapter);
+    }
+    private void startTimer(){
+        timer=new Timer();
+        timer.schedule(new TimerTask(){
+            @Override
+            public void run(){
+                handler.sendEmptyMessage(0);
+            }
+        },0, 2000);
+    }
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            super.handleMessage(msg);
+            switch(msg.what){
+                case 0:
+                    topPage.setCurrentItem(currentPosition+1);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
     @Override
-    public void onDetach(){
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener{
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public void onDestroy(){
+        if(timer!=null){
+            timer.cancel();
+            timer=null;
+        }
+        super.onDestroy();
     }
 }

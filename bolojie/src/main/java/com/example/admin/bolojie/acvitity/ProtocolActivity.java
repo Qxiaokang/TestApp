@@ -113,14 +113,12 @@ public class ProtocolActivity extends BaseActivity implements View.OnClickListen
             tvTitle.setText("加载失败");
         }
     };
-
     DownloadListener downloadListener = new DownloadListener(){
         @Override
         public void onDownloadStart(String s, String s1, String s2, String s3, long l){
             LogUtils.d("web  downLoadStart");
         }
     };
-
     @Override
     int getContentViewId(){
         return R.layout.activity_protocol;
