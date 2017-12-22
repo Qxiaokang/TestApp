@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.admin.bolojie.R;
+import com.example.admin.bolojie.adapter.AttentionAdapter;
 import com.example.admin.bolojie.adapter.ImagePageAdapter;
-import com.example.admin.bolojie.adapter.RecycleAdapter;
 import com.example.admin.bolojie.bean.Data;
 import com.example.admin.bolojie.view.PageIndexView;
 
@@ -26,7 +26,7 @@ import java.util.TimerTask;
 /**
  *
  */
-public class NewFragment extends Fragment implements ViewPager.OnPageChangeListener{
+public class RecommendFragment extends Fragment implements ViewPager.OnPageChangeListener{
     private ViewPager topPage;
     private PageIndexView pageIndexView;
     private List<String> listUrl=new ArrayList<String>();
@@ -37,7 +37,7 @@ public class NewFragment extends Fragment implements ViewPager.OnPageChangeListe
     private static final int First_Page=1;
     private Timer timer;
     private TimerTask timerTask;
-    public NewFragment(){
+    public RecommendFragment(){
         // Required empty public constructor
     }
     @Override
@@ -102,9 +102,9 @@ public class NewFragment extends Fragment implements ViewPager.OnPageChangeListe
         initRecycle(getContext(),tag,data);
     }
     private void initRecycle(Context context,int tag,Data data){
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),3);
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),2);
         gridLayoutManager.setAutoMeasureEnabled(true);
-        RecycleAdapter recycleAdapter=new RecycleAdapter(context,data,tag);
+        AttentionAdapter recycleAdapter=new AttentionAdapter(context,data,tag);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(recycleAdapter);
     }

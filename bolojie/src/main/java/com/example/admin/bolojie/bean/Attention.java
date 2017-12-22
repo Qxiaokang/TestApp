@@ -82,7 +82,7 @@ public class Attention extends Data{
         private String parameters;
         private int line;
         private boolean waterfall;
-        private List<LivelistBean> livelist;
+        private List<Living> livelist;
 
         public int getId(){
             return id;
@@ -148,11 +148,11 @@ public class Attention extends Data{
             this.waterfall = waterfall;
         }
 
-        public List<LivelistBean> getLivelist(){
+        public List<Living> getLivelist(){
             return livelist;
         }
 
-        public void setLivelist(List<LivelistBean> livelist){
+        public void setLivelist(List<Living> livelist){
             this.livelist = livelist;
         }
 

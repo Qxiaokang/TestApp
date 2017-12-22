@@ -10,7 +10,7 @@ import java.util.List;
 public interface IndexView{
     void showProgress();
     void hideProgress();
-    void loadDataError(String tag,String error);
-    void loadDataSuccess(String tag,List<?> list);
-    void loadDataSuccess(String tag, Data data);
+    void loadDataError(int tag,String error);
+    void loadDataSuccess(int tag,List<?> list);
+    void loadDataSuccess(int tag, Data data);
 }

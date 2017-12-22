@@ -8,8 +8,8 @@ import java.util.List;
  * Created by Admin on 2017/12/12.
  */
 public interface LoadFinishedListenler{
-    void onLoadError(String tag,String error);
-    void onLoadSuccess(String tag,List<?> list);
-    void onLoadSuccess(String tag, Data data);
+    void onLoadError(int tag,String error);
+    void onLoadSuccess(int tag,List<?> list);
+    void onLoadSuccess(int tag, Data data);
 }
 

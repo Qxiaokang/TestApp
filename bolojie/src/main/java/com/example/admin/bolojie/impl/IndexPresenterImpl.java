@@ -18,11 +18,11 @@ public class IndexPresenterImpl implements IndexPresenter,LoadFinishedListenler{
         indexModel=new IndexModelImpl();
     }
     @Override
-    public void validateCredentials(String tag){
+    public void validateCredentials(int tag,String url){
         if(indexView!=null){
             indexView.showProgress();
         }
-        indexModel.startLoad(tag,this);
+        indexModel.startLoad(tag,this,url);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class IndexPresenterImpl implements IndexPresenter,LoadFinishedListenler{
         indexView=null;
     }
     @Override
-    public void onLoadError(String tag,String error){
+    public void onLoadError(int tag,String error){
         if(indexView!=null){
             indexView.hideProgress();
             indexView.loadDataError(tag,error);
@@ -38,7 +38,7 @@ public class IndexPresenterImpl implements IndexPresenter,LoadFinishedListenler{
     }
 
     @Override
-    public void onLoadSuccess(String tag,List<?> list){
+    public void onLoadSuccess(int tag,List<?> list){
         if(indexView!=null){
             indexView.hideProgress();
             indexView.loadDataSuccess(tag,list);
@@ -46,7 +46,7 @@ public class IndexPresenterImpl implements IndexPresenter,LoadFinishedListenler{
     }
 
     @Override
-    public void onLoadSuccess(String tag, Data data){
+    public void onLoadSuccess(int tag, Data data){
         if(indexView!=null){
             indexView.hideProgress();
             indexView.loadDataSuccess(tag,data);

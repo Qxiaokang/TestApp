@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.admin.bolojie.R;
-import com.example.admin.bolojie.bean.Attention;
 import com.example.admin.bolojie.bean.Data;
 import com.example.admin.bolojie.bean.NewMessage;
 
@@ -23,7 +23,7 @@ import java.util.List;
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MHoder>{
     private Context context;
     private Data data;
-    private String tag;
+    private int tag;
     private List<String> listUrl=new ArrayList<String>();
     private List<String> listCity=new ArrayList<String>();
     private List<String> listName=new ArrayList<String>();
@@ -31,37 +31,23 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MHoder>{
     public RecycleAdapter(){
 
     }
-    public RecycleAdapter(Context context, Data data,String tag){
+    public RecycleAdapter(Context context, Data data,int tag){
         this.context=context;
         this.data=data;
         this.tag=tag;
-        if(tag!=null&&"new".equals(tag)){
-            listUrl.clear();
-            listCity.clear();
-            List<NewMessage.InfoBean.LivelistBean> livelist = ((NewMessage) data).getInfo().getLivelist();
-            for(int i = 0; i < livelist.size(); i++){
-                listUrl.add(livelist.get(i).getCover());
-                listCity.add(livelist.get(i).getUser().getCity());
-            }
-        }
-        if(tag!=null&&"att".equals(tag)){
-            listUrl.clear();
-            listCity.clear();
-            listName.clear();
-            listHome.clear();
-            Attention  attention= (Attention) data;
-            List<Attention.InfoBean.LivelistBean> livelist = attention.getInfo().getLivelist();
-            for(int i = 0; i < livelist.size(); i++){
-                listUrl.add(livelist.get(i).getCover());
-                listCity.add(livelist.get(i).getUser().getCity());
-                listName.add(livelist.get(i).getUser().getNickname());
-                listHome.add(livelist.get(i).getFamily().getName());
-            }
+        if(tag==1){
+                listUrl.clear();
+                listCity.clear();
+                List<NewMessage.InfoBean.LivelistBean> livelist = ((NewMessage) data).getInfo().getLivelist();
+                for(int i = 0; i < livelist.size(); i++){
+                    listUrl.add(livelist.get(i).getCover());
+                    listCity.add(livelist.get(i).getUser().getCity());
+                }
         }
     }
     @Override
     public MHoder onCreateViewHolder(ViewGroup parent, int viewType){
-        MHoder mHoder= new MHoder(LayoutInflater.from(context).inflate(R.layout.new_recycle_item,parent,false));
+        MHoder mHoder = new MHoder(LayoutInflater.from(context).inflate(R.layout.new_recycle_item,parent,false));
         return mHoder;
     }
 
@@ -78,18 +64,22 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MHoder>{
     class MHoder extends RecyclerView.ViewHolder{
         private ImageView imageView;
         private TextView textView;
+
         public MHoder(View itemView){
             super(itemView);
-            imageView= (ImageView) itemView.findViewById(R.id.iv_item);
-            textView= (TextView) itemView.findViewById(R.id.tv_city);
+            imageView = (ImageView) itemView.findViewById(R.id.iv_item);
+            textView = (TextView) itemView.findViewById(R.id.tv_city);
         }
     }
     private void updateItem(MHoder mHoder,int position){
-        if(tag!=null&&"new".equals(tag)){
+        if(tag==1){
             mHoder.imageView.setAdjustViewBounds(true);
             Glide.with(context)
                     .load(listUrl.get(position))
+                    .crossFade()
+                    .fallback(R.drawable.pic_userimage_null)
                     .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(mHoder.imageView);
             mHoder.textView.setText(listCity.get(position));
         }

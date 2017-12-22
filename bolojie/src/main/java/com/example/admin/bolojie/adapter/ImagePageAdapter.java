@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.admin.bolojie.R;
 
 import java.util.List;
 
@@ -39,7 +41,10 @@ public class ImagePageAdapter extends PagerAdapter{
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         Glide.with(context)
                 .load(listUrl.get(position))
-                .skipMemoryCache(true)
+                .crossFade()
+                .fallback(R.drawable.pic_userimage_null)
+                .skipMemoryCache(true)//跳过内存缓存
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
         container.addView(imageView);
         return imageView;
