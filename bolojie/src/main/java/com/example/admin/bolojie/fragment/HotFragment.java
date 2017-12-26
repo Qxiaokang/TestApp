@@ -11,15 +11,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.admin.bolojie.R;
-import com.example.admin.bolojie.adapter.AttentionAdapter;
-import com.example.admin.bolojie.adapter.HotAdapter;
+import com.example.admin.bolojie.adapter.HotLivingAdapter;
 import com.example.admin.bolojie.adapter.ImagePageAdapter;
 import com.example.admin.bolojie.bean.Data;
 import com.example.admin.bolojie.bean.Hot;
 import com.example.admin.bolojie.bean.Living;
+import com.example.admin.bolojie.interfaces.MultiItemTypeSupport;
 import com.example.admin.bolojie.util.LogUtils;
 import com.example.admin.bolojie.view.PageIndexView;
 
@@ -37,14 +36,15 @@ public class HotFragment extends Fragment implements ViewPager.OnPageChangeListe
     private List<String> listUrl=new ArrayList<String>();
     private boolean  isDownload=false;
     private ImagePageAdapter imagePageAdapter;
-    private RecyclerView recyclerView,moreRecyclerView;
+    private RecyclerView recyclerView;
     private int currentPosition;
     private static final int First_Page=1;
-    private TextView tv_more;
     private Timer timer;
     private TimerTask timerTask;
     private Data data;
     private int tag;
+    private int livePosition;
+    public static  final int TYPE_TOP=1,TYPE_BOT=2;
     public HotFragment(){
         // Required empty public constructor
     }
@@ -60,8 +60,6 @@ public class HotFragment extends Fragment implements ViewPager.OnPageChangeListe
         topPage= (ViewPager) view.findViewById(R.id.top_page);
         pageIndexView= (PageIndexView) view.findViewById(R.id.page_index);
         recyclerView= (RecyclerView) view.findViewById(R.id.hot_recycle);
-        moreRecyclerView= (RecyclerView) view.findViewById(R.id.hot_recycle_more);
-        tv_more= (TextView) view.findViewById(R.id.tv_more);
         LogUtils.w("---HotFragment---onCreateView---");
         return view;
     }
@@ -130,21 +128,7 @@ public class HotFragment extends Fragment implements ViewPager.OnPageChangeListe
         topPage.setCurrentItem(First_Page);
         startTimer();
         isDownload=true;
-        initRecycle(getContext(),tag,data);
-    }
-    private void initRecycle(Context context, int tag, Data data){
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(context,2);
-        gridLayoutManager.setAutoMeasureEnabled(true);
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup(){
-            @Override
-            public int getSpanSize(int position){
-                int type=recyclerView.getAdapter().getItemViewType(position);
-                return 0;
-            }
-        });
-        HotAdapter hotAdapter=new HotAdapter(context,data,tag);
-        recyclerView.setAdapter(hotAdapter);
-        updateMore(context,tag,data);
+        updateMore(getContext(),tag,data);
     }
     private void startTimer(){
         timer=new Timer();
@@ -178,25 +162,45 @@ public class HotFragment extends Fragment implements ViewPager.OnPageChangeListe
         LogUtils.w("---HotFragment---onDestroy---");
     }
     private void updateMore(Context context,int tag,Data data){
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(context,2);
+        gridLayoutManager.setAutoMeasureEnabled(true);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup(){
+            @Override
+            public int getSpanSize(int position){
+                int type=recyclerView.getAdapter().getItemViewType(position);
+                return type==TYPE_TOP?2:1;
+            }
+        });
+        List<Living> livings=new ArrayList<Living>();
         Hot hot= (Hot) data;
         List<Hot.ListBean> list = hot.getList();
-        if((list!=null&&list.size()<2)||list==null){
-            return;
-        }
-        List<Living> livings=new ArrayList<Living>();
         for(int i = 0; i < list.size(); i++){
-            if(i==list.size()-1){
-                tv_more.setVisibility(View.VISIBLE);
-                tv_more.setText(list.get(i).getName());
+            if(i==0){
+                livings=list.get(i).getLivelist();
+                livePosition=livings.size()-1;
+                LogUtils.d("livePosition:"+livePosition);
+            }
+            if(i!=0){
                 livings.addAll(list.get(i).getLivelist());
             }
         }
-        moreRecyclerView.setVisibility(View.VISIBLE);
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(context,2);
-        gridLayoutManager.setAutoMeasureEnabled(true);
-        AttentionAdapter recycleAdapter=new AttentionAdapter(context,data,tag);
-        moreRecyclerView.setLayoutManager(gridLayoutManager);
-        moreRecyclerView.setAdapter(recycleAdapter);
-        LogUtils.i("add more living");
+        HotLivingAdapter hotLivingAdapter=new HotLivingAdapter(context, livePosition, livings, new MultiItemTypeSupport(){
+            @Override
+            public int getLayoutId(int itemType){
+                if(itemType==TYPE_BOT){
+                    return R.layout.att_item;
+                }
+                return R.layout.hot_item;
+            }
+            @Override
+            public int getItemViewType(int position, Object o){
+                if(position>=livePosition){
+                   return TYPE_BOT;
+                }
+                return TYPE_TOP;
+            }
+        });
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(hotLivingAdapter);
     }
 }
