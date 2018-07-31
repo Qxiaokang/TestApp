@@ -11,7 +11,7 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://github.com/Qxiaokang/TestApp/blob/master/hhwy.ipa</string>
+					<string>https://github.com/Qxiaokang/TestApp/raw/master/hhwy.ipa</string>
 				</dict>
 				<dict>
 					<key>kind</key>
@@ -43,7 +43,7 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://66xk.work:10663/conference/hhwy-iPad%202-etc.ipa</string>
+					<string>https://github.com/Qxiaokang/TestApp/raw/master/hhwy.ipa</string>
 					<key>variantIds</key>
 					<array>
 						<string>iPad2,3</string>
@@ -59,7 +59,7 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://66xk.work:10663/conference/hhwy-iPad%20Air%202-etc.ipa</string>
+					<string>https://github.com/Qxiaokang/TestApp/raw/master/hhwy.ipa</string>
 					<key>variantIds</key>
 					<array>
 						<string>iPad4,4</string>
@@ -99,7 +99,7 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://66xk.work:10663/conference/hhwy-iPhone%205c-etc.ipa</string>
+					<string>https://github.com/Qxiaokang/TestApp/raw/master/hhwy.ipa</string>
 					<key>variantIds</key>
 					<array>
 						<string>iPhone6,1</string>
@@ -124,7 +124,7 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://66xk.work:10663/conference/hhwy-iPhone%206%20Plus-etc.ipa</string>
+					<string>https://github.com/Qxiaokang/TestApp/raw/master/hhwy.ipa</string>
 					<key>variantIds</key>
 					<array>
 						<string>iPhone10,2</string>
