@@ -17,13 +17,13 @@
 					<key>kind</key>
 					<string>display-image</string>
 					<key>url</key>
-					<string>https://66xk.work:10663/conference/image57x57.png</string>
+					<string></string>
 				</dict>
 				<dict>
 					<key>kind</key>
 					<string>full-size-image</string>
 					<key>url</key>
-					<string>https://66xk.work:10663/conference/image512x512.png</string>
+					<string></string>
 				</dict>
 			</array>
 			<key>metadata</key>
